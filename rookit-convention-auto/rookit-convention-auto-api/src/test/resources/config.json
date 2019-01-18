@@ -1,0 +1,8 @@
+{
+  "conventionApi": {
+    "basePackage": "meta",
+    "parameterName": "M",
+    "entitySuffix": "Metatype",
+    "partialEntityPrefix": "Generic"
+  }
+}

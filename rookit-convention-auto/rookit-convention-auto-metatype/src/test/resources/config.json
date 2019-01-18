@@ -1,0 +1,16 @@
+{
+  "conventionMetatype": {
+    "basePackage": "meta",
+    "entitySuffix": "MetatypeImpl"
+  },
+  "guice": {
+    "basePackage": "guice",
+    "propertyPackage": "just.a.simple.pack"
+  },
+  "conventionApi": {
+    "basePackage": "meta",
+    "parameterName": "M",
+    "entitySuffix": "Metatype",
+    "partialEntityPrefix": "Generic"
+  }
+}
