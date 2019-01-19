@@ -83,7 +83,7 @@ public final class MetatypeJavaPoetPropertyNamingFactory implements JavaPoetProp
             final ExtendedTypeMirror keyType = ((JavaxKeyedRepetition) repetition).unwrapKey(property.type());
             // TODO this has to be changed, as it is boxing stuff
             final TypeName keyClass = TypeName.get(keyType.boxIfPrimitive());
-            return ParameterizedTypeName.get(className, keyClass, propType);
+            return ParameterizedTypeName.get(className, typeName, keyClass, propType);
         }
         return ParameterizedTypeName.get(className, typeName, propType);
     }

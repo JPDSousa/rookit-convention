@@ -33,4 +33,6 @@ public interface ConventionPropertyConfig extends ProcessorConfig {
 
     String entitySuffix();
 
+    NamingConfig naming();
+
 }

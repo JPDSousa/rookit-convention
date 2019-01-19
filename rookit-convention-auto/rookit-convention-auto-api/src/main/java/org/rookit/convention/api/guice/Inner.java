@@ -19,22 +19,21 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  ******************************************************************************/
-package org.rookit.convention.api.source.entity;
+package org.rookit.convention.api.guice;
 
-import com.google.inject.Inject;
-import org.rookit.auto.entity.AbstractEntityFactory;
-import org.rookit.auto.entity.PartialEntityFactory;
-import org.rookit.auto.identifier.EntityIdentifierFactory;
-import org.rookit.auto.source.SingleTypeSourceFactory;
-import org.rookit.convention.utils.guice.MetatypeAPI;
+import com.google.inject.BindingAnnotation;
 
-final class MetaTypeEntityFactory extends AbstractEntityFactory {
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
 
-    @Inject
-    private MetaTypeEntityFactory(final PartialEntityFactory partialEntityFactory,
-                                  @MetatypeAPI final EntityIdentifierFactory identifierFactory,
-                                  @MetatypeAPI final SingleTypeSourceFactory typeSpecFactory) {
-        super(partialEntityFactory, identifierFactory, typeSpecFactory);
-    }
+import static java.lang.annotation.ElementType.FIELD;
+import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.ElementType.PARAMETER;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
+@SuppressWarnings("javadoc")
+@Retention(RUNTIME)
+@BindingAnnotation
+@Target({FIELD, METHOD, PARAMETER})
+public @interface Inner {
 }

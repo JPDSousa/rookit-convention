@@ -22,12 +22,25 @@
 package org.rookit.convention.api.source.entity;
 
 import com.google.inject.AbstractModule;
+import com.google.inject.Key;
 import com.google.inject.Module;
+import com.google.inject.Provides;
 import com.google.inject.Singleton;
+import org.rookit.auto.entity.BaseEntityFactory;
+import org.rookit.auto.entity.BasePartialEntityFactory;
 import org.rookit.auto.entity.EntityFactory;
 import org.rookit.auto.entity.PartialEntityFactory;
+import org.rookit.auto.entity.parent.NoOpParentExtractor;
+import org.rookit.auto.entity.parent.ParentExtractor;
+import org.rookit.auto.identifier.EntityIdentifierFactory;
+import org.rookit.auto.source.SingleTypeSourceFactory;
 import org.rookit.convention.api.guice.Container;
+import org.rookit.convention.api.guice.Inner;
+import org.rookit.convention.utils.guice.MetatypeAPI;
+import org.rookit.convention.utils.guice.PartialMetatypeAPI;
+import org.rookit.utils.optional.OptionalFactory;
 
+@SuppressWarnings("MethodMayBeStatic")
 public final class EntityModule extends AbstractModule {
 
     private static final Module MODULE = new EntityModule();
@@ -40,12 +53,50 @@ public final class EntityModule extends AbstractModule {
 
     @Override
     protected void configure() {
-        bind(EntityFactory.class).to(MetaTypeEntityFactory.class).in(Singleton.class);
-        bind(PartialEntityFactory.class).to(MetatypePartialEntityFactory.class).in(Singleton.class);
+        bind(PartialEntityFactory.class).to(Key.get(PartialEntityFactory.class, MetatypeAPI.class)).in(Singleton.class);
+
+        bind(PartialEntityFactory.class).annotatedWith(MetatypeAPI.class)
+                .to(MetatypePartialEntityFactory.class).in(Singleton.class);
 
         bind(EntityFactory.class).annotatedWith(Container.class)
                 .to(PropertyEntityFactory.class).in(Singleton.class);
-        bind(PartialEntityFactory.class).annotatedWith(Container.class)
-                .to(PropertyPartialEntityFactory.class).in(Singleton.class);
+    }
+
+    @Provides
+    @Singleton
+    @Inner
+    PartialEntityFactory innerPartialEntityFactory(@PartialMetatypeAPI final EntityIdentifierFactory identifierFactory,
+                                                   @PartialMetatypeAPI final SingleTypeSourceFactory typeSpecFactory,
+                                                   final OptionalFactory optionalFactory,
+                                                   final ParentExtractor extractor) {
+        return BasePartialEntityFactory.create(identifierFactory, typeSpecFactory, optionalFactory, extractor);
+    }
+
+    @Provides
+    @Singleton
+    EntityFactory entityFactory(final PartialEntityFactory partialEntityFactory,
+                                @MetatypeAPI final EntityIdentifierFactory identifierFactory,
+                                @MetatypeAPI final SingleTypeSourceFactory typeSpecFactory) {
+        return BaseEntityFactory.create(partialEntityFactory, identifierFactory, typeSpecFactory);
+    }
+
+    @Provides
+    @Singleton
+    @Inner
+    EntityFactory innerEntityFactory(@Container final PartialEntityFactory partialEntityFactory,
+                                     @MetatypeAPI final EntityIdentifierFactory identifierFactory,
+                                     @Container final SingleTypeSourceFactory typeSpecFactory) {
+        return BaseEntityFactory.create(partialEntityFactory, identifierFactory, typeSpecFactory);
+    }
+
+    @Provides
+    @Singleton
+    @Container
+    PartialEntityFactory containerPartialEntityFactory(@MetatypeAPI final EntityIdentifierFactory identifierFactory,
+                                                       @Container final SingleTypeSourceFactory typeSpecFactory,
+                                                       final OptionalFactory optionalFactory) {
+        return BasePartialEntityFactory.create(identifierFactory, typeSpecFactory, optionalFactory,
+                // FIXME and inject me
+                NoOpParentExtractor.create());
     }
 }

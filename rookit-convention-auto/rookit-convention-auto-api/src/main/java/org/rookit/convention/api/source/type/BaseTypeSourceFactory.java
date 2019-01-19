@@ -83,19 +83,18 @@ class BaseTypeSourceFactory implements SingleTypeSourceFactory {
         final TypeSpec.Builder builder = TypeSpec.interfaceBuilder(className)
                 .addTypeVariables(this.parameterResolver.createParameters(element))
                 .addModifiers(Modifier.PUBLIC)
-                .addSuperinterfaces(superInterfaces(element, identifier))
+                .addSuperinterfaces(superInterfaces(element))
                 .addMethods(methods(element, properties));
 
         return this.adapter.fromTypeSpec(identifier, builder.build());
     }
 
-    private Iterable<TypeName> superInterfaces(final ExtendedTypeElement element,
-                                               final Identifier identifier) {
+    private Iterable<TypeName> superInterfaces(final ExtendedTypeElement element) {
         final Collection<TypeName> superTypes = element.conventionInterfaces()
                 .map(conventionInterface -> this.parameterResolver.resolveParameters(conventionInterface))
                 .collect(Collectors.toList());
 
-        final ParameterizedTypeName typeModel = getModelTypeName(element, identifier);
+        final ParameterizedTypeName typeModel = getModelTypeName(element);
 
         return ImmutableList.<TypeName>builder()
                 .add(typeModel)
@@ -103,13 +102,12 @@ class BaseTypeSourceFactory implements SingleTypeSourceFactory {
                 .build();
     }
 
-    private ParameterizedTypeName getModelTypeName(final ExtendedTypeElement element,
-                                                   final Identifier identifier) {
+    private ParameterizedTypeName getModelTypeName(final ExtendedTypeElement element) {
         if (element.isEntity() || element.isPartialEntity()) {
             return ParameterizedTypeName.get(this.typeModel, this.typeVariableName);
         }
 
-        final ClassName elementName = ClassName.bestGuess(identifier.qualifiedOriginal());
+        final ClassName elementName = ClassName.get(element);
         return ParameterizedTypeName.get(this.propertyModel, this.typeVariableName, elementName);
     }
 

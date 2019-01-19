@@ -29,6 +29,7 @@ import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeVariableName;
+import one.util.streamex.StreamEx;
 import org.rookit.convention.utils.guice.MetatypeAPI;
 import org.rookit.convention.utils.guice.PartialMetatypeAPI;
 import org.rookit.auto.javapoet.method.EntityMethodFactory;
@@ -65,7 +66,7 @@ final class EntityPropertiesEntityMethodFactory implements EntityMethodFactory {
     }
 
     @Override
-    public Iterable<MethodSpec> create(final ExtendedTypeElement element) {
+    public StreamEx<MethodSpec> create(final ExtendedTypeElement element) {
         final MethodSpec.Builder builder = MethodSpec.methodBuilder("properties")
                 .returns(this.returnType)
                 .addModifiers(Modifier.DEFAULT, Modifier.PUBLIC);
@@ -83,7 +84,7 @@ final class EntityPropertiesEntityMethodFactory implements EntityMethodFactory {
                 .map(name -> CodeBlock.of("$L.add($L())", varName, name))
                 .forEach(builder::addStatement);
         builder.addStatement("return $L.build()", varName);
-        return ImmutableList.of(builder.build());
+        return StreamEx.of(builder.build());
     }
 
     @Override

@@ -19,31 +19,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  ******************************************************************************/
-package org.rookit.convention.api.source.entity;
+package org.rookit.convention.utils.config;
 
-import com.google.inject.Inject;
-import one.util.streamex.StreamEx;
-import org.rookit.auto.entity.AbstractPartialEntityFactory;
-import org.rookit.auto.entity.PartialEntity;
-import org.rookit.auto.identifier.EntityIdentifierFactory;
-import org.rookit.auto.javax.element.ExtendedTypeElement;
-import org.rookit.auto.source.SingleTypeSourceFactory;
-import org.rookit.convention.api.guice.Container;
-import org.rookit.convention.utils.guice.MetatypeAPI;
-import org.rookit.utils.optional.OptionalFactory;
+public interface NamingConfig {
 
-final class PropertyPartialEntityFactory extends AbstractPartialEntityFactory {
+    String metatype();
 
-    @Inject
-    private PropertyPartialEntityFactory(@MetatypeAPI final EntityIdentifierFactory identifierFactory,
-                                         @Container final SingleTypeSourceFactory typeSpecFactory,
-                                         final OptionalFactory optionalFactory) {
-        super(identifierFactory, typeSpecFactory, optionalFactory);
-    }
+    String propertyName();
 
-    @Override
-    protected StreamEx<PartialEntity> entitiesFor(final ExtendedTypeElement parent) {
-        return StreamEx.empty();
-    }
+    String getter();
 
 }
