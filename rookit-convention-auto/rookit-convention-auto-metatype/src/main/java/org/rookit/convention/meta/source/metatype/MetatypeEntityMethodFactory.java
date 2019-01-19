@@ -43,13 +43,17 @@ import org.rookit.auto.javax.property.ExtendedProperty;
 import org.rookit.auto.javax.property.PropertyExtractor;
 import org.rookit.convention.meta.guice.Metatype;
 import org.rookit.convention.utils.guice.Guice;
+import org.rookit.serialization.Serializer;
 
 import javax.lang.model.element.Modifier;
+import javax.lang.model.element.TypeElement;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import static javax.lang.model.element.Modifier.FINAL;
+import static javax.lang.model.element.Modifier.PUBLIC;
+import static javax.lang.model.element.Modifier.STATIC;
 
 final class MetatypeEntityMethodFactory implements EntityMethodFactory {
 
@@ -59,6 +63,8 @@ final class MetatypeEntityMethodFactory implements EntityMethodFactory {
     private final PropertyExtractor propertyExtractor;
     private final ClassName metatypeName;
     private final String metatypeVarName;
+    // TODO the separator needs to be injected
+    private final String separator;
     private final JavaPoetPropertyNamingFactory propertyNamingFactory;
     private final PropertyIdentifierFactory guiceIdentifierFactory;
 
@@ -77,11 +83,39 @@ final class MetatypeEntityMethodFactory implements EntityMethodFactory {
         this.guiceIdentifierFactory = guiceFactory;
         this.metatypeName = ClassName.get(org.rookit.convention.Metatype.class);
         this.metatypeVarName = "metatype";
+        this.separator = "\n";
     }
 
     @Override
-    public Iterable<MethodSpec> create(final ExtendedTypeElement element) {
-        return ImmutableList.of(createFactoryMethod(element), createConstructor(element));
+    public StreamEx<MethodSpec> create(final ExtendedTypeElement element) {
+        return StreamEx.of(
+                createFactoryMethod(element),
+                createConstructor(element),
+                createModelType(element),
+                createModelSerializer(element)
+        );
+    }
+
+    private MethodSpec createModelSerializer(final TypeElement element) {
+        // TODO this can be an injected field
+        // TODO the propertyName method name should not be hardcoded here
+        return MethodSpec.methodBuilder("modelSerializer")
+                .addModifiers(PUBLIC)
+                .addAnnotation(Override.class)
+                .returns(ParameterizedTypeName.get(ClassName.get(Serializer.class), ClassName.get(element)))
+                .addStatement("return this.$L.modelSerializer()", this.metatypeVarName)
+                .build();
+    }
+
+    private MethodSpec createModelType(final TypeElement element) {
+        // TODO this can be an injected field
+        // TODO the propertyName method name should not be hardcoded here
+        return MethodSpec.methodBuilder("modelType")
+                .addModifiers(PUBLIC)
+                .addAnnotation(Override.class)
+                .returns(ParameterizedTypeName.get(ClassName.get(Class.class), ClassName.get(element)))
+                .addStatement("return this.$L.modelType()", this.metatypeVarName)
+                .build();
     }
 
     private MethodSpec createConstructor(final ExtendedTypeElement element) {
@@ -89,48 +123,60 @@ final class MetatypeEntityMethodFactory implements EntityMethodFactory {
         final CodeBlock superStatement;
         if (parameters.size() > 1) {
             final String args = StreamEx.of(parameters)
-                    .skip(1)
                     .map(parameterSpec -> parameterSpec.name)
                     .collect(Collectors.joining(", "));
-            superStatement = CodeBlock.of("super($L, $T.of($L))", this.metatypeVarName, ImmutableSet.class, args);
+            superStatement = CodeBlock.of("super($T.of($L))", ImmutableSet.class, args);
         }
         else {
-            superStatement = CodeBlock.of("super($L)", this.metatypeVarName);
+            superStatement = CodeBlock.of("super($T.of())", ImmutableSet.class);
         }
-        final Collection<CodeBlock> blocks = parameters.stream()
-                .skip(1)
+        final Collection<CodeBlock> blocks = StreamEx.of(parameters)
                 .map(parameterSpec -> parameterSpec.name)
                 .map(name -> CodeBlock.of("this.$L = $L", name, name))
+                .append(CodeBlock.of("this.$L = $L", this.metatypeVarName, this.metatypeVarName))
                 .collect(Collectors.toSet());
 
         return MethodSpec.constructorBuilder()
                 .addModifiers(Modifier.PRIVATE)
                 .addAnnotation(Inject.class)
+                .addParameters(entityParameters(element))
                 .addParameters(parameters)
                 .addStatement(superStatement)
-                .addStatement(CodeBlock.join(blocks, ";"))
+                .addStatement(CodeBlock.join(blocks, ";" + this.separator))
                 .build();
+    }
+
+
+
+    private Collection<ParameterSpec> entityParameters(final ExtendedTypeElement element) {
+        final TypeName param = element.isPartialEntity() ? this.variableName : ClassName.get(element);
+        final ParameterizedTypeName metatypeType = ParameterizedTypeName.get(this.metatypeName, param);
+
+        return ImmutableSet.of(
+                ParameterSpec.builder(metatypeType, this.metatypeVarName, FINAL).build()
+        );
     }
 
     private MethodSpec createFactoryMethod(final ExtendedTypeElement element) {
         final Collection<ParameterSpec> parameters = createParameters(element, false);
-        final String paramString = parameters.stream()
+        final Collection<ParameterSpec> entityParameters = entityParameters(element);
+        final String paramString = StreamEx.of(entityParameters)
+                .append(parameters)
                 .map(parameterSpec -> parameterSpec.name)
                 .collect(Collectors.joining(", "));
 
         return MethodSpec.methodBuilder("create")
-                .addModifiers(Modifier.PUBLIC, Modifier.STATIC)
+                .addModifiers(PUBLIC, STATIC)
+                .addTypeVariable(this.variableName)
                 .returns(this.parameterResolver.resolveParameters(element))
+                .addParameters(entityParameters)
                 .addParameters(parameters)
                 .addStatement("return new $T($L)", this.namingFactory.classNameFor(element), paramString)
                 .build();
     }
 
     private List<ParameterSpec> createParameters(final ExtendedTypeElement element, final boolean includeAnnotations) {
-        final TypeName param = element.isPartialEntity() ? this.variableName : ClassName.get(element);
-        final ParameterizedTypeName metatypeType = ParameterizedTypeName.get(this.metatypeName, param);
         final ImmutableList.Builder<ParameterSpec> builder = ImmutableList.builder();
-        builder.add(ParameterSpec.builder(metatypeType, this.metatypeVarName, FINAL).build());
 
         this.propertyExtractor.fromType(element)
                 .map(property -> createParameter(element, property, includeAnnotations))

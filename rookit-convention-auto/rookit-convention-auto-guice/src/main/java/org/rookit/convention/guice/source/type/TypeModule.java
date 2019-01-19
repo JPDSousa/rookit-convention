@@ -29,6 +29,7 @@ import com.google.inject.Singleton;
 import org.rookit.auto.javapoet.type.BaseTypeSourceAdapter;
 import org.rookit.auto.javapoet.type.TypeSourceAdapter;
 import org.rookit.auto.javax.ExtendedExecutableElementFactory;
+import org.rookit.auto.javax.ExtendedTypeMirrorFactory;
 import org.rookit.auto.javax.JavaxRepetitionFactory;
 import org.rookit.auto.javax.element.BaseExtendedTypeElementFactory;
 import org.rookit.auto.javax.element.ElementUtils;
@@ -94,8 +95,10 @@ public final class TypeModule extends AbstractModule {
                                               final OptionalFactory optionalFactory,
                                               final PropertyExtractor extractor,
                                               final ElementUtils utils,
-                                              final Messager messager) {
-        return BaseExtendedTypeElementFactory.create(packageFactory, optionalFactory, extractor, utils, messager);
+                                              final Messager messager,
+                                              final ExtendedTypeMirrorFactory mirrorFactory) {
+        return BaseExtendedTypeElementFactory.create(packageFactory, optionalFactory, extractor,
+                utils, messager, mirrorFactory);
     }
 
 }

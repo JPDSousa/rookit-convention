@@ -35,7 +35,7 @@ import org.rookit.auto.javapoet.type.TypeSourceAdapter;
 import org.rookit.auto.javax.element.ExtendedTypeElement;
 import org.rookit.auto.javax.property.PropertyExtractor;
 import org.rookit.convention.meta.guice.Metatype;
-import org.rookit.convention.metatype.DelegateBaseMetatype;
+import org.rookit.convention.metatype.AbstractMetatype;
 import org.rookit.convention.utils.guice.MetatypeAPI;
 import org.rookit.utils.optional.Optional;
 import org.rookit.utils.optional.OptionalFactory;
@@ -61,7 +61,7 @@ final class MetatypePartialTypeSourceFactory extends AbstractMetatypeTypeSourceF
         super(adapter, methodFactory, entityMethodFactory, fieldFactory, extractor);
         this.optionalFactory = optionalFactory;
         this.typeVariableName = typeVariableName;
-        this.delegateBaseMetatype = ParameterizedTypeName.get(ClassName.get(DelegateBaseMetatype.class),
+        this.delegateBaseMetatype = ParameterizedTypeName.get(ClassName.get(AbstractMetatype.class),
                 this.typeVariableName);
         this.namingFactory = namingFactory;
     }

@@ -28,6 +28,7 @@ import com.google.inject.Provides;
 import com.google.inject.Singleton;
 import com.google.inject.util.Modules;
 import org.rookit.auto.javax.ExtendedExecutableElementFactory;
+import org.rookit.auto.javax.ExtendedTypeMirrorFactory;
 import org.rookit.auto.javax.JavaxRepetitionFactory;
 import org.rookit.auto.javax.element.ElementUtils;
 import org.rookit.auto.javax.element.ExtendedTypeElementFactory;
@@ -70,9 +71,10 @@ public final class SourceModule extends AbstractModule {
     @Singleton
     PropertyExtractor propertyExtractor(final ExtendedPropertyFactory factory,
                                         final ElementUtils utils,
-                                        final ExtendedExecutableElementFactory executableFactory) {
+                                        final ExtendedExecutableElementFactory executableFactory,
+                                        final ExtendedTypeMirrorFactory mirrorFactory) {
         final PropertyExtractor baseExtractor = BasePropertyExtractor.create(factory, executableFactory);
-        return RecursivePropertyExtractor.create(baseExtractor, utils);
+        return RecursivePropertyExtractor.create(baseExtractor, utils, mirrorFactory);
     }
 
     @Provides

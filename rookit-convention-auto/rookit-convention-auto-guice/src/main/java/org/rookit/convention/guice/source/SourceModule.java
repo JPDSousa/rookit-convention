@@ -23,11 +23,9 @@ package org.rookit.convention.guice.source;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Module;
-import com.google.inject.Provides;
 import com.google.inject.Singleton;
 import com.google.inject.util.Modules;
 import org.rookit.auto.entity.EntityFactory;
-import org.rookit.auto.entity.EntityToPartialEntityFactory;
 import org.rookit.auto.entity.PartialEntityFactory;
 import org.rookit.auto.identifier.PropertyIdentifierFactory;
 import org.rookit.auto.javax.guice.JavaxModule;
@@ -61,12 +59,8 @@ public final class SourceModule extends AbstractModule {
     protected void configure() {
         //noinspection UninstantiableBinding not really
         bind(PropertyIdentifierFactory.class).annotatedWith(Guice.class).to(PropertyIdentifierFactory.class);
-    }
-
-    @Provides
-    @Singleton
-    PartialEntityFactory partialEntityFactory(final EntityFactory delegate) {
-        return EntityToPartialEntityFactory.create(delegate);
+        //noinspection UninstantiableBinding not really
+        bind(PartialEntityFactory.class).to(EntityFactory.class).in(Singleton.class);
     }
 
 }

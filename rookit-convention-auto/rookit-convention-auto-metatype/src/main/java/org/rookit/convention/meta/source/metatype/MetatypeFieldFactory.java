@@ -21,9 +21,13 @@
  ******************************************************************************/
 package org.rookit.convention.meta.source.metatype;
 
+import com.google.common.collect.ImmutableList;
 import com.google.inject.Inject;
+import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.FieldSpec;
+import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
+import com.squareup.javapoet.TypeVariableName;
 import one.util.streamex.StreamEx;
 import org.rookit.auto.javapoet.FieldFactory;
 import org.rookit.auto.javapoet.naming.JavaPoetPropertyNamingFactory;
@@ -31,6 +35,7 @@ import org.rookit.auto.javax.element.ExtendedTypeElement;
 import org.rookit.auto.javax.property.ExtendedProperty;
 import org.rookit.convention.meta.guice.Metatype;
 
+import java.util.Collection;
 import java.util.stream.Stream;
 
 import static javax.lang.model.element.Modifier.FINAL;
@@ -39,10 +44,34 @@ import static javax.lang.model.element.Modifier.PRIVATE;
 final class MetatypeFieldFactory implements FieldFactory {
 
     private final JavaPoetPropertyNamingFactory namingFactory;
+    private final ClassName metatypeName;
+    private final TypeVariableName variableName;
 
     @Inject
-    private MetatypeFieldFactory(@Metatype final JavaPoetPropertyNamingFactory namingFactory) {
+    private MetatypeFieldFactory(@Metatype final JavaPoetPropertyNamingFactory namingFactory,
+                                 @Metatype final TypeVariableName variableName) {
         this.namingFactory = namingFactory;
+        this.variableName = variableName;
+        this.metatypeName = ClassName.get(org.rookit.convention.Metatype.class);
+    }
+
+    @Override
+    public Collection<FieldSpec> filterCompatible(final ExtendedTypeElement owner,
+                                                  final Collection<ExtendedProperty> properties) {
+        final TypeName param = owner.isPartialEntity() ? this.variableName : ClassName.get(owner);
+        final ParameterizedTypeName metatypeType = ParameterizedTypeName.get(this.metatypeName, param);
+        return ImmutableList.<FieldSpec>builder()
+                .add(FieldSpec.builder(metatypeType, "metatype", PRIVATE, FINAL).build())
+                .addAll(createPropertyFields(owner, properties))
+                .build();
+    }
+
+    private Collection<FieldSpec> createPropertyFields(final ExtendedTypeElement owner,
+                                                       final Collection<ExtendedProperty> properties) {
+        return StreamEx.of(properties)
+                .filter(this::isCompatible)
+                .flatMap(property -> create(owner, property))
+                .toImmutableSet();
     }
 
     @Override
@@ -64,6 +93,8 @@ final class MetatypeFieldFactory implements FieldFactory {
     public String toString() {
         return "MetatypeFieldFactory{" +
                 "namingFactory=" + this.namingFactory +
+                ", metatypeName=" + this.metatypeName +
+                ", variableName=" + this.variableName +
                 "}";
     }
 }

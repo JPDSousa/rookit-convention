@@ -29,8 +29,9 @@ import com.google.inject.Singleton;
 import com.squareup.javapoet.TypeVariableName;
 import org.rookit.auto.entity.BasePartialEntityFactory;
 import org.rookit.auto.entity.EntityFactory;
-import org.rookit.auto.entity.nopartial.NoPartialEntityFactory;
 import org.rookit.auto.entity.PartialEntityFactory;
+import org.rookit.auto.entity.nopartial.NoPartialEntityFactory;
+import org.rookit.auto.entity.parent.ParentExtractor;
 import org.rookit.auto.identifier.BaseEntityIdentifierFactory;
 import org.rookit.auto.identifier.EntityIdentifierFactory;
 import org.rookit.auto.javapoet.FieldFactory;
@@ -110,8 +111,9 @@ public final class MetatypeModule extends AbstractModule {
     @Metatype
     PartialEntityFactory partialEntityFactory(@Metatype final EntityIdentifierFactory identifierFactory,
                                               @PartialMetatype final SingleTypeSourceFactory typeSourceFactory,
-                                              final OptionalFactory optionalFactory) {
-        return BasePartialEntityFactory.create(identifierFactory, typeSourceFactory, optionalFactory);
+                                              final OptionalFactory optionalFactory,
+                                              final ParentExtractor extractor) {
+        return BasePartialEntityFactory.create(identifierFactory, typeSourceFactory, optionalFactory, extractor);
     }
 
     @Provides
