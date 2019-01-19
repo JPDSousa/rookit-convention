@@ -15,7 +15,12 @@
     "enabled": true,
     "basePackage": "meta",
     "parameterName": "T",
-    "entitySuffix": "MetatypeImpl"
+    "entitySuffix": "MetatypeImpl",
+    "naming": {
+      "metatype": "metatype",
+      "propertyName": "propertyName",
+      "getter": "getter"
+    }
   },
   "guice": {
     "enabled": true,

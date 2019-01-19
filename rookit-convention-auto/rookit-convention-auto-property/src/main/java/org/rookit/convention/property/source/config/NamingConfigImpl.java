@@ -19,48 +19,38 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  ******************************************************************************/
-package org.rookit.convention.metatype;
+package org.rookit.convention.property.source.config;
 
-import org.rookit.convention.Metatype;
-import org.rookit.convention.property.PropertyModel;
-import org.rookit.serialization.Serializer;
+import org.rookit.config.Configuration;
+import org.rookit.convention.utils.config.NamingConfig;
 
-import java.util.Collection;
-import java.util.Optional;
+final class NamingConfigImpl implements NamingConfig {
 
-public class DelegateBaseMetatype<T> implements Metatype<T> {
+    private final Configuration configuration;
 
-    private final Metatype<T> delegate;
-
-    protected DelegateBaseMetatype(final Metatype<T> delegate,
-                                   final Collection<PropertyModel<?>> properties) {
-        this.delegate = delegate;
+    NamingConfigImpl(final Configuration configuration) {
+        this.configuration = configuration;
     }
 
     @Override
-    public Collection<PropertyModel<?>> properties() {
-        return this.delegate.properties();
+    public String metatype() {
+        return this.configuration.getString("metatype");
     }
 
     @Override
-    public Optional<PropertyModel<?>> property(final String name) {
-        return this.delegate.property(name);
+    public String propertyName() {
+        return this.configuration.getString("propertyName");
     }
 
     @Override
-    public Class<T> modelType() {
-        return this.delegate.modelType();
-    }
-
-    @Override
-    public Serializer<T> modelSerializer() {
-        return this.delegate.modelSerializer();
+    public String getter() {
+        return this.configuration.getString("getter");
     }
 
     @Override
     public String toString() {
-        return "DelegateBaseMetatype{" +
-                "delegate=" + this.delegate +
+        return "NamingConfigImpl{" +
+                "configuration=" + this.configuration +
                 "}";
     }
 }

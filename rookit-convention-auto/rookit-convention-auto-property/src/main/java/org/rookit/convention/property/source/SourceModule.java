@@ -30,7 +30,7 @@ import com.squareup.javapoet.TypeVariableName;
 import org.rookit.auto.EntityHandler;
 import org.rookit.auto.entity.EntityFactory;
 import org.rookit.auto.entity.PropertyEntityFactory;
-import org.rookit.auto.entity.propertyflat.PropertFlatEntityFactory;
+import org.rookit.auto.entity.property.PropertyFlatEntityFactory;
 import org.rookit.auto.identifier.BaseEntityIdentifierFactory;
 import org.rookit.auto.identifier.EntityIdentifierFactory;
 import org.rookit.auto.javapoet.FieldFactory;
@@ -70,10 +70,10 @@ public final class SourceModule extends AbstractNamingModule {
         bind(EntityHandler.class).to(PropertyEntityHandler.class).in(Singleton.class);
         bind(PropertyEntityFactory.class).to(MetatypePropertyEntityFactory.class).in(Singleton.class);
         bind(PropertyEvaluator.class).toInstance(ExtendedProperty::isContainer);
-        bind(EntityFactory.class).to(PropertFlatEntityFactory.class).in(Singleton.class);
+        bind(EntityFactory.class).to(PropertyFlatEntityFactory.class).in(Singleton.class);
         bind(SingleTypeSourceFactory.class).to(PropertySingleTypeSourceFactory.class).in(Singleton.class);
-        bind(FieldFactory.class).to(Key.get(FieldFactory.class, Metatype.class)).in(Singleton.class);
-        bind(EntityMethodFactory.class).to(Key.get(EntityMethodFactory.class, Metatype.class)).in(Singleton.class);
+        bind(FieldFactory.class).to(MetatypePropertyFieldFactory.class).in(Singleton.class);
+        bind(EntityMethodFactory.class).to(PropertyMetatypeEntityMethodFactory.class).in(Singleton.class);
         bind(MethodFactory.class).to(Key.get(MethodFactory.class, Metatype.class)).in(Singleton.class);
     }
 

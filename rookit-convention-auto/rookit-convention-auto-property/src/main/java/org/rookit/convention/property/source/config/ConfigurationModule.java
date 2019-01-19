@@ -29,6 +29,7 @@ import org.rookit.auto.config.AutoConfig;
 import org.rookit.auto.config.ProcessorConfig;
 import org.rookit.auto.naming.PackageReferenceFactory;
 import org.rookit.convention.utils.config.ConventionPropertyConfig;
+import org.rookit.convention.utils.config.NamingConfig;
 
 @SuppressWarnings("MethodMayBeStatic")
 public final class ConfigurationModule extends AbstractModule {
@@ -50,6 +51,12 @@ public final class ConfigurationModule extends AbstractModule {
     @Singleton
     ConventionPropertyConfig config(final AutoConfig config, final PackageReferenceFactory packageFactory) {
         return new ConventionPropertyConfigImpl(config.getProcessorConfig("conventionProperty"), packageFactory);
+    }
+
+    @Provides
+    @Singleton
+    NamingConfig namingConfig(final ConventionPropertyConfig config) {
+        return config.naming();
     }
 
 }

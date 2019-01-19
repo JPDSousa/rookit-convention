@@ -26,6 +26,7 @@ import org.rookit.auto.naming.PackageReference;
 import org.rookit.auto.naming.PackageReferenceFactory;
 import org.rookit.config.Configuration;
 import org.rookit.convention.utils.config.ConventionPropertyConfig;
+import org.rookit.convention.utils.config.NamingConfig;
 
 final class ConventionPropertyConfigImpl implements ConventionPropertyConfig {
 
@@ -50,6 +51,11 @@ final class ConventionPropertyConfigImpl implements ConventionPropertyConfig {
     @Override
     public String entitySuffix() {
         return this.configuration.getString("entitySuffix");
+    }
+
+    @Override
+    public NamingConfig naming() {
+        return new NamingConfigImpl(this.configuration.getConfig("naming"));
     }
 
     @Override
