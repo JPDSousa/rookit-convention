@@ -17,6 +17,7 @@
         <module>rookit-convention-auto-api</module>
         <module>rookit-convention-auto-utils</module>
         <module>rookit-convention-auto-property</module>
+        <module>rookit-convention-auto-module</module>
     </modules>
 
     <name>Rookit Convention Auto</name>
