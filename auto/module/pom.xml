@@ -5,23 +5,14 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <packaging>pom</packaging>
-
     <parent>
-        <groupId>com.github.JPDSousa</groupId>
-        <artifactId>rookit</artifactId>
+        <groupId>com.github.JPDSousa.rookit-convention</groupId>
+        <artifactId>auto</artifactId>
         <version>-SNAPSHOT</version>
     </parent>
 
-    <groupId>com.github.JPDSousa.rookit-convention</groupId>
-    <artifactId>rookit-convention</artifactId>
+    <artifactId>auto-module</artifactId>
 
-    <name>Rookit Convention</name>
-
-    <modules>
-        <module>api</module>
-        <module>lib</module>
-        <module>auto</module>
-    </modules>
+    <name>Rookit Convention Auto Module</name>
 
 </project>

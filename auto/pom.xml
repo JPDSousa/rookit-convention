@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <packaging>pom</packaging>
+
+    <parent>
+        <groupId>com.github.JPDSousa.rookit-convention</groupId>
+        <artifactId>rookit-convention</artifactId>
+        <version>-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>auto</artifactId>
+
+    <modules>
+        <module>metatype-api</module>
+        <module>metatype-type</module>
+        <module>metatype-property</module>
+        <module>guice</module>
+        <module>module</module>
+        <module>api</module>
+        <module>lib</module>
+    </modules>
+
+    <name>Rookit Convention Auto</name>
+
+    <dependencies>
+        <dependency>
+            <groupId>${rookit.group}.rookit-utils</groupId>
+            <artifactId>api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>${rookit.group}.rookit-auto</groupId>
+            <artifactId>lib</artifactId>
+        </dependency>
+    </dependencies>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>${rookit.group}.rookit-auto</groupId>
+                <artifactId>lib</artifactId>
+                <version>${rookit.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${rookit.group}.rookit-utils</groupId>
+                <artifactId>api</artifactId>
+                <version>${rookit.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+
+</project>
