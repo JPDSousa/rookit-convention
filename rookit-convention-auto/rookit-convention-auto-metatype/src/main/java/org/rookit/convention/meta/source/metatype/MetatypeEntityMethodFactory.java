@@ -98,7 +98,7 @@ final class MetatypeEntityMethodFactory implements EntityMethodFactory {
 
     private MethodSpec createModelSerializer(final TypeElement element) {
         // TODO this can be an injected field
-        // TODO the propertyName method name should not be hardcoded here
+        // TODO the propertyName method className should not be hardcoded here
         return MethodSpec.methodBuilder("modelSerializer")
                 .addModifiers(PUBLIC)
                 .addAnnotation(Override.class)
@@ -109,7 +109,7 @@ final class MetatypeEntityMethodFactory implements EntityMethodFactory {
 
     private MethodSpec createModelType(final TypeElement element) {
         // TODO this can be an injected field
-        // TODO the propertyName method name should not be hardcoded here
+        // TODO the propertyName method className should not be hardcoded here
         return MethodSpec.methodBuilder("modelType")
                 .addModifiers(PUBLIC)
                 .addAnnotation(Override.class)
