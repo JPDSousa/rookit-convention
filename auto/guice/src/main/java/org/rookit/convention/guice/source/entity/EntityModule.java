@@ -23,12 +23,7 @@ package org.rookit.convention.guice.source.entity;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Module;
-import com.google.inject.Singleton;
-import org.rookit.auto.entity.EntityFactory;
-import org.rookit.auto.entity.PropertyEntityFactory;
-import org.rookit.auto.entity.property.BasePropertyEntityFactory;
-import org.rookit.auto.entity.property.PropertyFlatEntityFactory;
-import org.rookit.auto.javax.property.PropertyEvaluator;
+import org.rookit.convention.auto.property.ExtendedPropertyEvaluator;
 
 public final class EntityModule extends AbstractModule {
 
@@ -42,9 +37,9 @@ public final class EntityModule extends AbstractModule {
 
     @Override
     protected void configure() {
-        bind(PropertyEvaluator.class).toInstance(property -> true);
-        bind(EntityFactory.class).to(PropertyFlatEntityFactory.class).in(Singleton.class);
-        bind(PropertyEntityFactory.class).to(BasePropertyEntityFactory.class).in(Singleton.class);
+        bind(ExtendedPropertyEvaluator.class).toInstance(property -> true);
+//        bind(CodeSourceFactory.class).to(PropertyFlatEntityFactory.class).in(Singleton.class);
+//      FIXME bind(PropertyEntityFactory.class).to(BasePropertyEntityFactory.class).in(Singleton.class);
     }
 
 }

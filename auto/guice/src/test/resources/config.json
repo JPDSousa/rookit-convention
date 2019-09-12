@@ -1,6 +1,5 @@
 {
-  "guice": {
-    "basePackage": "guice",
-    "propertyPackage": "just.a.simple.pack"
-  }
+  "enabled": true,
+  "basePackage": "guice",
+  "propertyPackage": "org.rookit.api.meta"
 }

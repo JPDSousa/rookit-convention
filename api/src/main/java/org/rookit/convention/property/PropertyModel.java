@@ -21,10 +21,14 @@
  ******************************************************************************/
 package org.rookit.convention.property;
 
-import org.rookit.convention.Metatype;
+import org.rookit.convention.MetaType;
+import org.rookit.convention.guice.AnnotationBody;
+import org.rookit.guice.auto.annotation.BindingAnnotationGenerator;
 
-public interface PropertyModel<T> extends Metatype<T> {
+@BindingAnnotationGenerator(copyBodyFrom = AnnotationBody.class)
+public interface PropertyModel<T> extends MetaType<T> {
 
+    @BindingAnnotationGenerator
     String propertyName();
 
 }

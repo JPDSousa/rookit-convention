@@ -22,7 +22,7 @@
 package org.rookit.convention.property;
 
 import org.apache.commons.lang3.tuple.Pair;
-import org.rookit.convention.Metatype;
+import org.rookit.convention.MetaType;
 
 import java.util.Map;
 import java.util.function.BiConsumer;
@@ -38,13 +38,13 @@ final class MutableMapPropertyModelImpl<E, K, V> extends ImmutableMapPropertyMod
     private final BiFunction<E, K, V> remover;
 
     MutableMapPropertyModelImpl(final String name,
-                                final Metatype<V> metatype,
+                                final MetaType<V> metaType,
                                 final Function<E, Map<K, V>> getter,
                                 final BiConsumer<E, Map<K, V>> setter,
                                 final BiConsumer<E, Map.Entry<K, V>> putter,
                                 final BiConsumer<E, Map<K, V>> allPutter,
                                 final BiFunction<E, K, V> remover) {
-        super(name, metatype, getter);
+        super(name, metaType, getter);
         this.setter = setter;
         this.putter = putter;
         this.allPutter = allPutter;

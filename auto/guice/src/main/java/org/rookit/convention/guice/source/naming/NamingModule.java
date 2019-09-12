@@ -22,18 +22,16 @@
 package org.rookit.convention.guice.source.naming;
 
 import com.google.inject.AbstractModule;
+import com.google.inject.Key;
 import com.google.inject.Module;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
-import org.rookit.auto.identifier.BaseEntityIdentifierFactory;
-import org.rookit.auto.identifier.BasePropertyIdentifierFactory;
-import org.rookit.auto.identifier.EntityIdentifierFactory;
-import org.rookit.auto.identifier.PropertyIdentifierFactory;
-import org.rookit.auto.naming.BaseJavaPoetNamingFactory;
-import org.rookit.auto.naming.NamingFactory;
-import org.rookit.convention.config.GuiceConfig;
-
-import static org.apache.commons.lang3.StringUtils.EMPTY;
+import org.rookit.auto.javapoet.naming.JavaPoetNamingFactory;
+import org.rookit.auto.javax.naming.NamingFactory;
+import org.rookit.convention.auto.javapoet.identifier.BasePropertyIdentifierFactory;
+import org.rookit.convention.auto.javax.naming.PropertyIdentifierFactory;
+import org.rookit.convention.guice.source.config.GuiceConventionConfig;
+import org.rookit.guice.auto.annotation.Guice;
 
 @SuppressWarnings("MethodMayBeStatic")
 public final class NamingModule extends AbstractModule {
@@ -48,26 +46,17 @@ public final class NamingModule extends AbstractModule {
 
     @Override
     protected void configure() {
-
+        bind(PropertyIdentifierFactory.class).to(Key.get(PropertyIdentifierFactory.class, Guice.class))
+                .in(Singleton.class);
+        bind(JavaPoetNamingFactory.class).to(Key.get(JavaPoetNamingFactory.class, Guice.class));
     }
 
     @Provides
     @Singleton
+    @Guice
     PropertyIdentifierFactory propertyIdentifierFactory(final NamingFactory namingFactory,
-                                                        final GuiceConfig config) {
+                                                        final GuiceConventionConfig config) {
         return BasePropertyIdentifierFactory.create(namingFactory, config.propertyPackage());
-    }
-
-    @Provides
-    @Singleton
-    EntityIdentifierFactory entityIdentifierFactory(final NamingFactory namingFactory) {
-        return BaseEntityIdentifierFactory.create(namingFactory);
-    }
-
-    @Provides
-    @Singleton
-    NamingFactory namingFactory(final GuiceConfig config) {
-        return BaseJavaPoetNamingFactory.create(config.basePackage(), EMPTY, EMPTY, EMPTY);
     }
 
 }

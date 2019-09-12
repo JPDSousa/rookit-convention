@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module version="4">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
+    <output url="file://$MODULE_DIR$/../metatype/module-generator/target/classes" />
+    <output-test url="file://$MODULE_DIR$/../metatype/module-generator/target/test-classes" />
+    <content url="file://$MODULE_DIR$/../metatype/module-generator">
+      <sourceFolder url="file://$MODULE_DIR$/../metatype/module-generator/src/main/java" isTestSource="false" />
+      <excludeFolder url="file://$MODULE_DIR$/../metatype/module-generator/target" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="rookit-convention-auto-api" />
+    <orderEntry type="module" module-name="rookit-auto-api" />
+    <orderEntry type="module" module-name="rookit-io-path-api" />
+    <orderEntry type="library" name="Maven: org.immutables:value:2.7.1" level="project" />
+    <orderEntry type="library" name="Maven: com.google.auto.service:auto-service:1.0-rc4" level="project" />
+    <orderEntry type="library" name="Maven: com.google.auto:auto-common:0.8" level="project" />
+    <orderEntry type="module" module-name="rookit-auto-source-javapoet-api" />
+    <orderEntry type="library" name="Maven: one.util:streamex:0.6.8" level="project" />
+    <orderEntry type="library" name="Maven: com.squareup:javapoet:1.11.1" level="project" />
+    <orderEntry type="module" module-name="rookit-auto-javax-api" />
+    <orderEntry type="module" module-name="rookit-convention-auto-metatype-lib" />
+    <orderEntry type="library" name="Maven: com.google.inject:guice:4.2.2" level="project" />
+    <orderEntry type="library" name="Maven: javax.inject:javax.inject:1" level="project" />
+    <orderEntry type="library" name="Maven: aopalliance:aopalliance:1.0" level="project" />
+    <orderEntry type="library" name="Maven: com.google.guava:guava:27.1-jre" level="project" />
+    <orderEntry type="library" name="Maven: com.google.guava:failureaccess:1.0.1" level="project" />
+    <orderEntry type="library" name="Maven: com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava" level="project" />
+    <orderEntry type="library" name="Maven: com.google.code.findbugs:jsr305:3.0.2" level="project" />
+    <orderEntry type="library" name="Maven: org.checkerframework:checker-qual:2.5.2" level="project" />
+    <orderEntry type="library" name="Maven: com.google.errorprone:error_prone_annotations:2.2.0" level="project" />
+    <orderEntry type="library" name="Maven: com.google.j2objc:j2objc-annotations:1.1" level="project" />
+    <orderEntry type="library" name="Maven: org.codehaus.mojo:animal-sniffer-annotations:1.17" level="project" />
+    <orderEntry type="module" module-name="rookit-convention-auto-metatype-api-generator" />
+    <orderEntry type="module" module-name="rookit-auto-javax-lib" />
+    <orderEntry type="module" module-name="rookit-failsafe-api" />
+    <orderEntry type="module" module-name="rookit-auto-guice" />
+    <orderEntry type="module" module-name="rookit-auto-source-javapoet-lib" />
+    <orderEntry type="module" module-name="rookit-auto-source-lib" />
+    <orderEntry type="module" module-name="rookit-io-api" />
+    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.25" level="project" />
+    <orderEntry type="module" module-name="rookit-convention-auto-lib" />
+    <orderEntry type="module" module-name="rookit-convention-api" />
+    <orderEntry type="module" module-name="rookit-serializer-api" />
+    <orderEntry type="module" module-name="rookit-auto-lib" />
+    <orderEntry type="module" module-name="rookit-guice-auto-lib" />
+    <orderEntry type="module" module-name="rookit-convention-lib" />
+    <orderEntry type="module" module-name="rookit-utils-api" />
+    <orderEntry type="library" name="Maven: commons-beanutils:commons-beanutils:1.9.3" level="project" />
+    <orderEntry type="library" name="Maven: commons-logging:commons-logging:1.2" level="project" />
+    <orderEntry type="library" name="Maven: commons-collections:commons-collections:3.2.2" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.commons:commons-collections4:4.1" level="project" />
+    <orderEntry type="library" name="Maven: commons-io:commons-io:2.5" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.commons:commons-lang3:3.6" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.commons:commons-text:1.1" level="project" />
+    <orderEntry type="library" name="Maven: it.unimi.dsi:fastutil:8.1.1" level="project" />
+    <orderEntry type="library" name="Maven: com.google.inject.extensions:guice-multibindings:4.2.2" level="project" />
+    <orderEntry type="library" name="Maven: io.reactivex.rxjava2:rxjava:2.2.2" level="project" />
+    <orderEntry type="library" name="Maven: org.reactivestreams:reactive-streams:1.0.2" level="project" />
+    <orderEntry type="module" module-name="rookit-failsafe-lib" />
+    <orderEntry type="module" module-name="rookit-io-lib" />
+    <orderEntry type="module" module-name="rookit-config-api" />
+    <orderEntry type="module" module-name="rookit-io-path-lib" />
+    <orderEntry type="module" module-name="rookit-utils-lib" />
+    <orderEntry type="library" name="Maven: com.google.code.gson:gson:2.8.5" level="project" />
+    <orderEntry type="module" module-name="rookit-convention-auto-guice" />
+    <orderEntry type="module" module-name="rookit-guice-auto-annotations" />
+    <orderEntry type="module" module-name="rookit-auto-source-api" />
+    <orderEntry type="module" module-name="rookit-serializer-bundle" />
+    <orderEntry type="module" module-name="rookit-serializer-bson" />
+    <orderEntry type="library" name="Maven: org.mongodb:bson:3.9.1" level="project" />
+    <orderEntry type="module" module-name="rookit-serializer-json" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-core:2.9.8" level="project" />
+    <orderEntry type="module" module-name="rookit-guice-auto-api" />
+    <orderEntry type="module" module-name="rookit-convention-auto-metatype-type-generator" />
+    <orderEntry type="module" module-name="rookit-convention-auto-metatype-property" />
+  </component>
+</module>

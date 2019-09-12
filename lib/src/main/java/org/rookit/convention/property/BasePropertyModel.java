@@ -21,7 +21,7 @@
  ******************************************************************************/
 package org.rookit.convention.property;
 
-import org.rookit.convention.Metatype;
+import org.rookit.convention.MetaType;
 import org.rookit.serialization.Serializer;
 
 import java.util.Collection;
@@ -30,11 +30,11 @@ import java.util.Optional;
 public class BasePropertyModel<T> implements PropertyModel<T> {
 
     private final String name;
-    private final Metatype<T> metatype;
+    private final MetaType<T> metaType;
 
-    protected BasePropertyModel(final String name, final Metatype<T> metatype) {
+    protected BasePropertyModel(final String name, final MetaType<T> metaType) {
         this.name = name;
-        this.metatype = metatype;
+        this.metaType = metaType;
     }
 
     @Override
@@ -44,29 +44,29 @@ public class BasePropertyModel<T> implements PropertyModel<T> {
 
     @Override
     public Collection<PropertyModel<?>> properties() {
-        return this.metatype.properties();
+        return this.metaType.properties();
     }
 
     @Override
     public Optional<PropertyModel<?>> property(final String name) {
-        return this.metatype.property(name);
+        return this.metaType.property(name);
     }
 
     @Override
     public Class<T> modelType() {
-        return this.metatype.modelType();
+        return this.metaType.modelType();
     }
 
     @Override
     public Serializer<T> modelSerializer() {
-        return this.metatype.modelSerializer();
+        return this.metaType.modelSerializer();
     }
 
     @Override
     public String toString() {
         return "BasePropertyModel{" +
                 "name='" + this.name + '\'' +
-                ", metatype=" + this.metatype +
+                ", metaType=" + this.metaType +
                 "}";
     }
 }

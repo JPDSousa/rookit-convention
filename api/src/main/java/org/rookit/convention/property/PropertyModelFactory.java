@@ -21,7 +21,7 @@
  ******************************************************************************/
 package org.rookit.convention.property;
 
-import org.rookit.convention.Metatype;
+import org.rookit.convention.MetaType;
 import org.rookit.utils.optional.Optional;
 
 import java.util.Collection;
@@ -35,20 +35,20 @@ public interface PropertyModelFactory {
     <E, T> MutablePropertyModel<E, T> createMutableProperty(String name,
                                                             BiConsumer<E, T> setter,
                                                             Function<E, T> getter,
-                                                            Metatype<T> metatype);
+                                                            MetaType<T> metaType);
 
     <E, T> ImmutablePropertyModel<E, T> createImmutableProperty(String name,
                                                                 Function<E, T> getter,
-                                                                Metatype<T> metatype);
+                                                                MetaType<T> metaType);
 
     <E, T> MutableOptionalPropertyModel<E, T> createMutableOptionalProperty(String name,
                                                                             BiConsumer<E, T> setter,
                                                                             Function<E, Optional<T>> getter,
-                                                                            Metatype<T> metatype);
+                                                                            MetaType<T> metaType);
 
     <E, T> ImmutableOptionalPropertyModel<E, T> createImmutableOptionalProperty(String name,
                                                                                 Function<E, Optional<T>> getter,
-                                                                                Metatype<T> metatype);
+                                                                                MetaType<T> metaType);
 
     <E, T> MutableCollectionPropertyModel<E, T> createMutableCollectionProperty(String name,
                                                                                 BiConsumer<E, Collection<T>> setter,
@@ -57,15 +57,15 @@ public interface PropertyModelFactory {
                                                                                 BiConsumer<E, T> remove,
                                                                                 BiConsumer<E, Collection<T>> removeAll,
                                                                                 Function<E, Collection<T>> getter,
-                                                                                Metatype<T> metatype);
+                                                                                MetaType<T> metaType);
 
     <E, T> ImmutableCollectionPropertyModel<E, T> createImmutableCollectionProperty(String name,
                                                                                     Function<E, Collection<T>> getter,
-                                                                                    Metatype<T> metatype);
+                                                                                    MetaType<T> metaType);
 
     <E, K, V> ImmutableMapPropertyModel<E, K, V> createImmutableMapProperty(String name,
                                                                             Function<E, Map<K, V>> getter,
-                                                                            Metatype<V> metatype);
+                                                                            MetaType<V> metaType);
 
     <E, K, V> MutableMapPropertyModel<E, K, V> createMutableMapProperty(String name,
                                                                         Function<E, Map<K, V>> getter,
@@ -73,6 +73,6 @@ public interface PropertyModelFactory {
                                                                         BiConsumer<E, Map.Entry<K, V>> putter,
                                                                         BiConsumer<E, Map<K, V>> allPutter,
                                                                         BiFunction<E, K, V> remover,
-                                                                        Metatype<V> metatype);
+                                                                        MetaType<V> metaType);
 
 }

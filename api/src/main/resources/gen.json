@@ -1,0 +1,10 @@
+{
+  "guice": {
+    "enabled": true,
+    "basePackage": "guice"
+  },
+  "path": {
+    "temporaryDirectory": "D:/temp",
+    "failIfAbsent": true
+  }
+}

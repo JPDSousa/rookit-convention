@@ -21,7 +21,7 @@
  ******************************************************************************/
 package org.rookit.convention.property;
 
-import org.rookit.convention.Metatype;
+import org.rookit.convention.MetaType;
 import org.rookit.utils.optional.Optional;
 
 import java.util.Collection;
@@ -36,15 +36,15 @@ final class PropertyModelFactoryImpl implements PropertyModelFactory {
     public <E, T> MutablePropertyModel<E, T> createMutableProperty(final String name,
                                                             final BiConsumer<E, T> setter,
                                                             final Function<E, T> getter,
-                                                            final Metatype<T> metatype) {
-        return new MutablePropertyModelImpl<>(name, setter, getter, metatype);
+                                                            final MetaType<T> metaType) {
+        return new MutablePropertyModelImpl<>(name, setter, getter, metaType);
     }
 
     @Override
     public <E, T> ImmutablePropertyModel<E, T> createImmutableProperty(final String name,
                                                                        final Function<E, T> getter,
-                                                                       final Metatype<T> metatype) {
-        return new ImmutablePropertyModelImpl<>(name, metatype, getter);
+                                                                       final MetaType<T> metaType) {
+        return new ImmutablePropertyModelImpl<>(name, metaType, getter);
     }
 
     @Override
@@ -52,16 +52,16 @@ final class PropertyModelFactoryImpl implements PropertyModelFactory {
             final String name,
             final BiConsumer<E, T> setter,
             final Function<E, Optional<T>> getter,
-            final Metatype<T> metatype) {
-        return new MutableOptionalPropertyModelImpl<>(name, metatype, getter, setter);
+            final MetaType<T> metaType) {
+        return new MutableOptionalPropertyModelImpl<>(name, metaType, getter, setter);
     }
 
     @Override
     public <E, T> ImmutableOptionalPropertyModel<E, T> createImmutableOptionalProperty(
             final String name,
             final Function<E, Optional<T>> getter,
-            final Metatype<T> metatype) {
-        return new ImmutableOptionalPropertyModelImpl<>(name, metatype, getter);
+            final MetaType<T> metaType) {
+        return new ImmutableOptionalPropertyModelImpl<>(name, metaType, getter);
     }
 
     @Override
@@ -73,23 +73,23 @@ final class PropertyModelFactoryImpl implements PropertyModelFactory {
             final BiConsumer<E, T> remove,
             final BiConsumer<E, Collection<T>> removeAll,
             final Function<E, Collection<T>> getter,
-            final Metatype<T> metatype) {
-        return new MutableCollectionPropertyModelImpl<>(name, metatype, getter, setter, add, addAll, remove, removeAll);
+            final MetaType<T> metaType) {
+        return new MutableCollectionPropertyModelImpl<>(name, metaType, getter, setter, add, addAll, remove, removeAll);
     }
 
     @Override
     public <E, T> ImmutableCollectionPropertyModel<E, T> createImmutableCollectionProperty(
             final String name,
             final Function<E, Collection<T>> getter,
-            final Metatype<T> metatype) {
-        return new ImmutableCollectionPropertyModelImpl<>(name, metatype, getter);
+            final MetaType<T> metaType) {
+        return new ImmutableCollectionPropertyModelImpl<>(name, metaType, getter);
     }
 
     @Override
     public <E, K, V> ImmutableMapPropertyModel<E, K, V> createImmutableMapProperty(final String name,
                                                                                    final Function<E, Map<K, V>> getter,
-                                                                                   final Metatype<V> metatype) {
-        return new ImmutableMapPropertyModelImpl<>(name, metatype, getter);
+                                                                                   final MetaType<V> metaType) {
+        return new ImmutableMapPropertyModelImpl<>(name, metaType, getter);
     }
 
     @Override
@@ -100,8 +100,8 @@ final class PropertyModelFactoryImpl implements PropertyModelFactory {
             final BiConsumer<E, Map.Entry<K, V>> putter,
             final BiConsumer<E, Map<K, V>> allPutter,
             final BiFunction<E, K, V> remover,
-            final Metatype<V> metatype) {
-        return new MutableMapPropertyModelImpl<>(name, metatype, getter, setter, putter, allPutter, remover);
+            final MetaType<V> metaType) {
+        return new MutableMapPropertyModelImpl<>(name, metaType, getter, setter, putter, allPutter, remover);
     }
 
 

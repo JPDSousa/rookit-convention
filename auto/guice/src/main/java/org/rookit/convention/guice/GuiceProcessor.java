@@ -23,18 +23,17 @@ package org.rookit.convention.guice;
 
 import com.google.auto.service.AutoService;
 import com.google.inject.Module;
+import org.rookit.convention.auto.AbstractConventionProcessor;
 import org.rookit.convention.guice.source.SourceModule;
-import org.rookit.auto.AbstractEntityProcessor;
 
 import javax.annotation.processing.Processor;
 
-@SuppressWarnings("PublicConstructor") // needed by SPI
+@SuppressWarnings({"PublicConstructor", "unused"})
 @AutoService(Processor.class)
-public final class GuiceProcessor extends AbstractEntityProcessor {
+public final class GuiceProcessor extends AbstractConventionProcessor {
 
     @Override
     protected Module sourceModule() {
         return SourceModule.getModule();
     }
-
 }

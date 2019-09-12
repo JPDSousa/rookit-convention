@@ -21,7 +21,7 @@
  ******************************************************************************/
 package org.rookit.convention.property;
 
-import org.rookit.convention.Metatype;
+import org.rookit.convention.MetaType;
 
 import java.util.Map;
 import java.util.function.Function;
@@ -32,9 +32,9 @@ class ImmutableMapPropertyModelImpl<E, K, V> extends BasePropertyModel<V>
     private final Function<E, Map<K, V>> getter;
 
     ImmutableMapPropertyModelImpl(final String name,
-                                  final Metatype<V> metatype,
+                                  final MetaType<V> metaType,
                                   final Function<E, Map<K, V>> getter) {
-        super(name, metatype);
+        super(name, metaType);
         this.getter = getter;
     }
 

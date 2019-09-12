@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <packaging>pom</packaging>
+
+    <parent>
+        <groupId>com.github.JPDSousa.rookit-convention</groupId>
+        <artifactId>auto</artifactId>
+        <version>-SNAPSHOT</version>
+    </parent>
+
+    <modules>
+        <module>api-generator</module>
+        <module>property-generator</module>
+        <module>type-generator</module>
+        <module>module-generator</module>
+        <module>lib</module>
+    </modules>
+
+    <artifactId>auto-metatype</artifactId>
+
+    <name>Rookit Convention Auto MetaType</name>
+
+</project>

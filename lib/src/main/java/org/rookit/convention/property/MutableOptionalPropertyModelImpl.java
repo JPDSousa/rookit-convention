@@ -21,7 +21,7 @@
  ******************************************************************************/
 package org.rookit.convention.property;
 
-import org.rookit.convention.Metatype;
+import org.rookit.convention.MetaType;
 import org.rookit.utils.optional.Optional;
 
 import java.util.function.BiConsumer;
@@ -33,10 +33,10 @@ final class MutableOptionalPropertyModelImpl<E, T> extends ImmutableOptionalProp
     private final BiConsumer<E, T> setter;
 
     MutableOptionalPropertyModelImpl(final String name,
-                                     final Metatype<T> metatype,
+                                     final MetaType<T> metaType,
                                      final Function<E, Optional<T>> getter,
                                      final BiConsumer<E, T> setter) {
-        super(name, metatype, getter);
+        super(name, metaType, getter);
         this.setter = setter;
     }
 

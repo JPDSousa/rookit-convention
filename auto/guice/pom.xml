@@ -17,12 +17,40 @@
 
     <dependencies>
         <dependency>
-            <groupId>${rookit.group}.rookit-convention</groupId>
+            <groupId>${rookit.group}.rookit-guice</groupId>
+            <artifactId>auto-annotations</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>${rookit.group}.rookit-guice</groupId>
             <artifactId>auto-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>${rookit.group}.rookit-auto</groupId>
+            <artifactId>javax-lib</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>${rookit.group}.rookit-auto</groupId>
+            <artifactId>source-javapoet-lib</artifactId>
         </dependency>
         <dependency>
             <groupId>${rookit.group}.rookit-convention</groupId>
             <artifactId>auto-lib</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>${rookit.group}.rookit-convention</groupId>
+            <artifactId>lib</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>${rookit.group}.rookit-failsafe</groupId>
+            <artifactId>lib</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>${rookit.group}.rookit-io</groupId>
+            <artifactId>path-lib</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>${rookit.group}.rookit-io</groupId>
+            <artifactId>lib</artifactId>
         </dependency>
         <dependency>
             <groupId>${rookit.group}.rookit-utils</groupId>
@@ -34,33 +62,14 @@
             <artifactId>test</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.apache.maven.surefire</groupId>
+            <artifactId>surefire-logger-api</artifactId>
+            <version>${plugin.maven.surefire.version}</version>
+            <!-- to get around bug https://github.com/junit-team/junit5/issues/1367 -->
+            <scope>test</scope>
+            <optional>true</optional>
+        </dependency>
     </dependencies>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>${rookit.group}.rookit-convention</groupId>
-                <artifactId>auto-api</artifactId>
-                <version>${rookit.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>${rookit.group}.rookit-convention</groupId>
-                <artifactId>auto-lib</artifactId>
-                <version>${rookit.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>${rookit.group}.rookit-utils</groupId>
-                <artifactId>lib</artifactId>
-                <version>${rookit.version}</version>
-            </dependency>
-            <!-- Test dependencies -->
-            <dependency>
-                <groupId>${rookit.group}.rookit-auto</groupId>
-                <artifactId>test</artifactId>
-                <version>${rookit.version}</version>
-                <scope>test</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 
 </project>

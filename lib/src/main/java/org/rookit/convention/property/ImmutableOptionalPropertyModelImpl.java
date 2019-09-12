@@ -21,7 +21,7 @@
  ******************************************************************************/
 package org.rookit.convention.property;
 
-import org.rookit.convention.Metatype;
+import org.rookit.convention.MetaType;
 import org.rookit.utils.optional.Optional;
 
 import java.util.function.Function;
@@ -32,9 +32,9 @@ class ImmutableOptionalPropertyModelImpl<E, T> extends BasePropertyModel<T>
     private final Function<E, Optional<T>> getter;
 
     ImmutableOptionalPropertyModelImpl(final String name,
-                                       final Metatype<T> metatype,
+                                       final MetaType<T> metaType,
                                        final Function<E, Optional<T>> getter) {
-        super(name, metatype);
+        super(name, metaType);
         this.getter = getter;
     }
 

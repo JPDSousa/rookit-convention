@@ -13,4 +13,24 @@
 
     <name>Rookit Convention Auto Library</name>
 
+    <dependencies>
+        <dependency>
+            <groupId>${rookit.group}.rookit-convention</groupId>
+            <artifactId>auto-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>${rookit.group}.rookit-convention</groupId>
+            <artifactId>api</artifactId>
+        </dependency>
+        <!--   TODO why do we need the dependencies below? There should be no lib -> lib dependencies     -->
+        <dependency>
+            <groupId>${rookit.group}.rookit-auto</groupId>
+            <artifactId>lib</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>${rookit.group}.rookit-guice</groupId>
+            <artifactId>auto-lib</artifactId>
+        </dependency>
+    </dependencies>
+
 </project>

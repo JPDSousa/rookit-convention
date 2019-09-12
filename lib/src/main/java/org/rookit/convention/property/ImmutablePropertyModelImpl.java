@@ -21,7 +21,7 @@
  ******************************************************************************/
 package org.rookit.convention.property;
 
-import org.rookit.convention.Metatype;
+import org.rookit.convention.MetaType;
 
 import java.util.function.Function;
 
@@ -29,8 +29,8 @@ class ImmutablePropertyModelImpl<E, T> extends BasePropertyModel<T> implements I
 
     private final Function<E, T> getter;
 
-    ImmutablePropertyModelImpl(final String name, final Metatype<T> metatype, final Function<E, T> getter) {
-        super(name, metatype);
+    ImmutablePropertyModelImpl(final String name, final MetaType<T> metaType, final Function<E, T> getter) {
+        super(name, metaType);
         this.getter = getter;
     }
 

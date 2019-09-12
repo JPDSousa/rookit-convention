@@ -21,7 +21,7 @@
  ******************************************************************************/
 package org.rookit.convention.property;
 
-import org.rookit.convention.Metatype;
+import org.rookit.convention.MetaType;
 
 import java.util.Collection;
 import java.util.function.Function;
@@ -32,9 +32,9 @@ class ImmutableCollectionPropertyModelImpl<E, T> extends BasePropertyModel<T>
     private final Function<E, Collection<T>> getter;
 
     ImmutableCollectionPropertyModelImpl(final String name,
-                                         final Metatype<T> metatype,
+                                         final MetaType<T> metaType,
                                          final Function<E, Collection<T>> getter) {
-        super(name, metatype);
+        super(name, metaType);
         this.getter = getter;
     }
 

@@ -21,7 +21,7 @@
  ******************************************************************************/
 package org.rookit.convention.property;
 
-import org.rookit.convention.Metatype;
+import org.rookit.convention.MetaType;
 
 import java.util.Collection;
 import java.util.function.BiConsumer;
@@ -37,14 +37,14 @@ final class MutableCollectionPropertyModelImpl<E, T> extends ImmutableCollection
     private final BiConsumer<E, Collection<T>> removeAller;
 
     MutableCollectionPropertyModelImpl(final String name,
-                                       final Metatype<T> metatype,
+                                       final MetaType<T> metaType,
                                        final Function<E, Collection<T>> getter,
                                        final BiConsumer<E, Collection<T>> setter,
                                        final BiConsumer<E, T> adder,
                                        final BiConsumer<E, Collection<T>> addAller,
                                        final BiConsumer<E, T> remover,
                                        final BiConsumer<E, Collection<T>> removeAller) {
-        super(name, metatype, getter);
+        super(name, metaType, getter);
         this.setter = setter;
         this.adder = adder;
         this.addAller = addAller;

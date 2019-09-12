@@ -16,41 +16,13 @@
     <artifactId>auto</artifactId>
 
     <modules>
-        <module>metatype-api</module>
-        <module>metatype-type</module>
-        <module>metatype-property</module>
         <module>guice</module>
-        <module>module</module>
         <module>api</module>
         <module>lib</module>
+        <module>metatype</module>
     </modules>
 
     <name>Rookit Convention Auto</name>
-
-    <dependencies>
-        <dependency>
-            <groupId>${rookit.group}.rookit-utils</groupId>
-            <artifactId>api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>${rookit.group}.rookit-auto</groupId>
-            <artifactId>lib</artifactId>
-        </dependency>
-    </dependencies>
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>${rookit.group}.rookit-auto</groupId>
-                <artifactId>lib</artifactId>
-                <version>${rookit.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>${rookit.group}.rookit-utils</groupId>
-                <artifactId>api</artifactId>
-                <version>${rookit.version}</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 
 
 </project>

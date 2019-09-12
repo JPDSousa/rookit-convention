@@ -1,4 +1,14 @@
-package org.rookit.convention.guice; /*******************************************************************************
+package org.rookit.convention.guice;
+
+import org.apache.commons.io.IOUtils;
+import org.junit.jupiter.api.BeforeEach;
+import org.rookit.auto.ExtendedProcessor;
+import org.rookit.auto.ExtendedProcessorTest;
+
+import java.io.IOException;
+import java.nio.charset.Charset;
+
+/*******************************************************************************
  * Copyright (C) 2018 Joao Sousa
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -20,30 +30,18 @@ package org.rookit.convention.guice; /******************************************
  * SOFTWARE.
  ******************************************************************************/
 
-import org.junit.jupiter.api.BeforeEach;
-import org.rookit.auto.EntityProcessor;
-import org.rookit.auto.EntityProcessorTest;
-
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
-@SuppressWarnings("JUnitTestCaseWithNoTests")
-public class GuiceProcessorTest implements EntityProcessorTest {
+public class GuiceProcessorTest implements ExtendedProcessorTest {
 
     private String configContent;
 
     @BeforeEach
-    public void readConfig() throws URISyntaxException, IOException {
-        final Path path = Paths.get(GuiceProcessorTest.class.getResource("/config.json").toURI());
-        this.configContent = new String(Files.readAllBytes(path), Charset.defaultCharset());
+    public void readConfig() throws IOException {
+        this.configContent = new String(IOUtils.toByteArray(getClass().getResource("/config.json").openStream()),
+                                        Charset.defaultCharset());
     }
 
     @Override
-    public EntityProcessor processor() {
+    public ExtendedProcessor processor() {
         return new GuiceProcessor();
     }
 
@@ -51,4 +49,5 @@ public class GuiceProcessorTest implements EntityProcessorTest {
     public String jsonConfig() {
         return this.configContent;
     }
+
 }

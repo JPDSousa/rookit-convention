@@ -21,8 +21,12 @@
  ******************************************************************************/
 package org.rookit.convention.property;
 
+import org.rookit.guice.auto.annotation.BindingAnnotationGenerator;
+
+@BindingAnnotationGenerator
 public interface ImmutablePropertyModel<E, T> extends PropertyModel<T> {
 
+    @BindingAnnotationGenerator
     T get(E entity);
 
 }

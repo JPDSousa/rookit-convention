@@ -23,29 +23,52 @@ package org.rookit.convention.guice.source;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Module;
+import com.google.inject.Provides;
 import com.google.inject.Singleton;
 import com.google.inject.util.Modules;
-import org.rookit.auto.entity.EntityFactory;
-import org.rookit.auto.entity.PartialEntityFactory;
-import org.rookit.auto.identifier.PropertyIdentifierFactory;
-import org.rookit.auto.javax.guice.JavaxModule;
-import org.rookit.convention.guice.Guice;
-import org.rookit.convention.guice.source.config.ConfigurationModule;
+import org.rookit.auto.javapoet.SourceJavaPoetLibModule;
+import org.rookit.auto.javax.JavaxLibModule;
+import org.rookit.auto.source.CodeSourceFactories;
+import org.rookit.auto.source.CodeSourceFactory;
+import org.rookit.auto.source.SourceLibModule;
+import org.rookit.auto.source.spec.SpecFactory;
+import org.rookit.auto.source.type.TypeSource;
+import org.rookit.convention.ConventionModule;
+import org.rookit.convention.auto.ConventionLibModule;
+import org.rookit.convention.guice.source.config.ConfigModule;
 import org.rookit.convention.guice.source.entity.EntityModule;
+import org.rookit.convention.guice.source.javapoet.JavaPoetModule;
+import org.rookit.convention.guice.source.javax.JavaxModule;
 import org.rookit.convention.guice.source.naming.NamingModule;
-import org.rookit.convention.guice.source.type.TypeModule;
+import org.rookit.failsafe.FailsafeModule;
+import org.rookit.guice.auto.GuiceAutoLibModule;
+import org.rookit.guice.auto.annotation.config.ConfigurationModule;
+import org.rookit.io.IOLibModule;
+import org.rookit.io.path.PathModule;
+import org.rookit.serializer.SerializationBundleModule;
 import org.rookit.utils.guice.UtilsModule;
 
 @SuppressWarnings("MethodMayBeStatic")
 public final class SourceModule extends AbstractModule {
 
     private static final Module MODULE = Modules.combine(
-            NamingModule.getModule(),
-            TypeModule.getModule(),
-            JavaxModule.getModule(),
-            EntityModule.getModule(),
-            UtilsModule.getModule(),
+            ConfigModule.getModule(),
             ConfigurationModule.getModule(),
+            ConventionLibModule.getModule(),
+            ConventionModule.getModule(),
+            EntityModule.getModule(),
+            FailsafeModule.getModule(),
+            GuiceAutoLibModule.getModule(),
+            IOLibModule.getModule(),
+            JavaPoetModule.getModule(),
+            JavaxModule.getModule(),
+            JavaxLibModule.getModule(),
+            NamingModule.getModule(),
+            PathModule.getModule(),
+            SerializationBundleModule.getModule(),
+            SourceJavaPoetLibModule.getModule(),
+            SourceLibModule.getModule(),
+            UtilsModule.getModule(),
             new SourceModule()
     );
 
@@ -55,12 +78,11 @@ public final class SourceModule extends AbstractModule {
 
     private SourceModule() {}
 
-    @Override
-    protected void configure() {
-        //noinspection UninstantiableBinding not really
-        bind(PropertyIdentifierFactory.class).annotatedWith(Guice.class).to(PropertyIdentifierFactory.class);
-        //noinspection UninstantiableBinding not really
-        bind(PartialEntityFactory.class).to(EntityFactory.class).in(Singleton.class);
+    @Provides
+    @Singleton
+    CodeSourceFactory sourceFactory(final SpecFactory<TypeSource> specFactory,
+                                    final CodeSourceFactories factories) {
+        return factories.specCodeSourceFactory(specFactory);
     }
 
 }
